@@ -12,6 +12,9 @@ updates:
       # typeorm 1.x bo cu phap select/relations dang mang, @nestjs/typeorm 11 chua ho tro. Giu 0.3.x.
       - dependency-name: "typeorm"
         update-types: ["version-update:semver-major"]
+      # TypeScript 7 chua tuong thich ts-jest (khong co API bien dich JS), 25/25 bo test API loi. Giu 5.x.
+      - dependency-name: "typescript"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: weekly }
