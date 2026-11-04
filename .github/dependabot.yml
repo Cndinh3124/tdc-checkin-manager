@@ -9,6 +9,9 @@ updates:
       # chi co dang ESM, jest (CommonJS) khong nap duoc. Nang ca bo NestJS len 12 bang tay trong mot PR rieng.
       - dependency-name: "@nestjs/*"
         update-types: ["version-update:semver-major"]
+      # typeorm 1.x bo cu phap select/relations dang mang, @nestjs/typeorm 11 chua ho tro. Giu 0.3.x.
+      - dependency-name: "typeorm"
+        update-types: ["version-update:semver-major"]
   - package-ecosystem: github-actions
     directory: /
     schedule: { interval: weekly }
