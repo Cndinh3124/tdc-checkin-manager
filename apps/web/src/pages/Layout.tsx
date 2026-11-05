@@ -78,6 +78,7 @@ export function Layout() {
             <NavLink to="/don-vi">Đơn vị</NavLink>
             <NavLink to="/nam-hoc">Năm học và lĩnh vực</NavLink>
             <NavLink to="/cau-hinh">Cấu hình</NavLink>
+            <NavLink to="/phi-doan-hoi">Chưa đóng phí</NavLink>
             <NavLink to="/nhat-ky">Nhật ký</NavLink>
           </>
         )}

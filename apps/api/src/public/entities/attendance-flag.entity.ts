@@ -6,7 +6,7 @@ import { Attendance } from './attendance.entity';
 export type FlagCode =
   | 'DUPLICATE_MSSV' | 'DEVICE_MULTI_MSSV' | 'MSSV_MULTI_DEVICE' | 'NAME_MISMATCH' | 'FACULTY_MISMATCH'
   | 'NEW_DEVICE' | 'BURST_SAME_FINGERPRINT' | 'GPS_OUTSIDE' | 'GPS_LOW_ACCURACY' | 'GPS_MISSING'
-  | 'NO_CHECKOUT' | 'MANUAL_ENTRY';
+  | 'NO_CHECKOUT' | 'MANUAL_ENTRY' | 'DUES_UNPAID';
 
 @Index('UQ_attendance_flags_code', ['attendanceId', 'code'], { unique: true })
 @Entity('attendance_flags')

@@ -2,7 +2,7 @@
 // Chi hien ten su kien + gio; ma xac nhan chi cho luot do chinh may nay diem danh.
 import { useEffect, useState } from 'react';
 import { HistoryItem, myAppeals, MyAppeal, myHistory, PublicError } from '../publicApi';
-import { fmt } from '../format';
+import { DuesAlert, fmt, ProxyAlert } from '../format';
 
 const APPEAL_STATUS: Record<MyAppeal['status'], [string, string]> = {
   PENDING: ['Đang chờ xử lý', 'wait'],
@@ -13,10 +13,12 @@ const APPEAL_STATUS: Record<MyAppeal['status'], [string, string]> = {
 export function Lookup() {
   const [items, setItems] = useState<HistoryItem[] | null>(null);
   const [appeals, setAppeals] = useState<MyAppeal[]>([]);
+  const [proxyWarning, setProxyWarning] = useState(false);
+  const [duesWarning, setDuesWarning] = useState<string | null>(null);
   const [error, setError] = useState('');
 
   useEffect(() => {
-    myHistory().then((r) => setItems(r.items)).catch((e: PublicError) => setError(e.message));
+    myHistory().then((r) => { setItems(r.items); setProxyWarning(!!r.proxyWarning); setDuesWarning(r.duesWarning ?? null); }).catch((e: PublicError) => setError(e.message));
     myAppeals().then((r) => setAppeals(r.items)).catch(() => {});
   }, []);
 
@@ -33,6 +35,8 @@ export function Lookup() {
         <b>Lịch sử điểm danh</b>
       </header>
       <main className="pub-body">
+        {proxyWarning && <ProxyAlert />}
+        {duesWarning && <DuesAlert message={duesWarning} />}
         {error && <div className="error" role="alert">{error}</div>}
         {!error && !items && <p>Đang tải…</p>}
         {items && items.length === 0 && (

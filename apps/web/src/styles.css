@@ -63,6 +63,7 @@ a:hover { text-decoration: underline; }
 .grid2 { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; }
 .check { display: flex; gap: 8px; align-items: center; margin-bottom: 14px; }
 .error { background: var(--err-bg); color: var(--err-fg); border-radius: 10px; padding: 10px 12px; font-size: 14px; margin-bottom: 14px; }
+.proxy-alert { background: #fbeaea; color: #a12a2a; border: 2px solid #d32f2f; border-radius: 10px; padding: 12px 14px; font-size: 15px; font-weight: 700; margin-bottom: 14px; }
 .notice { background: var(--tint); color: var(--info-fg); border-radius: 10px; padding: 10px 12px; font-size: 14px; margin-bottom: 14px; }
 
 /* bang */

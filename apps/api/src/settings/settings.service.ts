@@ -38,12 +38,20 @@ const mssvRegex: Validator = (v) => {
   return v;
 };
 
+const duesMessage: Validator = (v) => {
+  if (typeof v !== 'string' || v.trim().length < 1 || v.length > 500) {
+    throw Err.bad('INVALID_SETTING', 'Nội dung cảnh báo phải từ 1 đến 500 ký tự.');
+  }
+  return v.trim();
+};
+
 export const SETTING_RULES: Record<string, Validator> = {
   mssv_regex: mssvRegex,
   appeal_days: int('Số ngày khiếu nại', 1, 60),
   default_open_before_min: int('Số phút mở điểm danh trước giờ', 0, 240),
   default_grace_min: int('Số phút ân hạn', 0, 120),
   data_retention_months: int('Số tháng lưu dữ liệu vị trí', 1, 60),
+  dues_warning_message: duesMessage,
   device_mssv_window_days: int('Số ngày xét thiết bị gắn nhiều MSSV', 1, 730),
 };
 

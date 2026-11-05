@@ -35,6 +35,7 @@ const Login = lazy(() => import('./pages/Login').then((m) => ({ default: m.Login
 const Reports = lazy(() => import('./pages/Reports').then((m) => ({ default: m.Reports })));
 const Review = lazy(() => import('./pages/Review').then((m) => ({ default: m.Review })));
 const Settings = lazy(() => import('./pages/Settings').then((m) => ({ default: m.Settings })));
+const DuesUnpaid = lazy(() => import('./pages/DuesUnpaid').then((m) => ({ default: m.DuesUnpaid })));
 const Students = lazy(() => import('./pages/Students').then((m) => ({ default: m.Students })));
 const Units = lazy(() => import('./pages/Units').then((m) => ({ default: m.Units })));
 const Users = lazy(() => import('./pages/Users').then((m) => ({ default: m.Users })));
@@ -73,6 +74,7 @@ createRoot(document.getElementById('root')!).render(
               <Route path="/tai-khoan" element={<Users />} />
               <Route path="/don-vi" element={<Units />} />
               <Route path="/cau-hinh" element={<Settings />} />
+              <Route path="/phi-doan-hoi" element={<DuesUnpaid />} />
               <Route path="/nam-hoc" element={<ActivityConfig />} />
               <Route path="/nhat-ky" element={<AuditLog />} />
             </Route>

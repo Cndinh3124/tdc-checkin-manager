@@ -31,7 +31,7 @@ const EXPORT_MAX_ROWS = 20_000;
 const VN_OFFSET_MS = 7 * 3600_000;
 const FLAG_LABEL: Record<string, string> = {
   DUPLICATE_MSSV: 'Trùng MSSV', DEVICE_MULTI_MSSV: 'Thiết bị dùng cho nhiều MSSV', MSSV_MULTI_DEVICE: 'MSSV dùng nhiều thiết bị',
-  NAME_MISMATCH: 'Tên khác lần trước', FACULTY_MISMATCH: 'Khoa khác lần trước', NEW_DEVICE: 'Thiết bị mới',
+  NAME_MISMATCH: 'Tên khác lần trước', FACULTY_MISMATCH: 'Khoa khác lần trước', NEW_DEVICE: 'Thiết bị mới', DUES_UNPAID: 'Chưa đóng đoàn phí - hội phí',
   BURST_SAME_FINGERPRINT: 'Nhiều MSSV cùng máy', GPS_OUTSIDE: 'Ngoài vùng GPS', GPS_LOW_ACCURACY: 'GPS kém chính xác',
   GPS_MISSING: 'Không có GPS', NO_CHECKOUT: 'Chưa điểm danh ra', MANUAL_ENTRY: 'Thêm thủ công',
 };

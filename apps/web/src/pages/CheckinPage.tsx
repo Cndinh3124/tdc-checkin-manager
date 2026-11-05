@@ -2,7 +2,7 @@
 // Luong: quet QR -> form -> xac nhan -> (xin GPS neu su kien co toa do) -> ve. Diem danh ra: nut + ma 4 so neu muc Chat.
 import { FormEvent, useEffect, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import { fmt } from '../format';
+import { DuesAlert, fmt, ProxyAlert } from '../format';
 import {
   AppealType, checkin, checkout, editTicket, Faculty, getPosition, loadFaculties, loadToken, myAppeals, MyAppeal, Position, PublicError,
   sendAppeal, Ticket, TokenInfo, uuid4,
@@ -46,6 +46,8 @@ export function CheckinPage() {
         {!fatal && !info && <p>Đang tải…</p>}
         {info && (
           <>
+            {info.proxyWarning && <ProxyAlert />}
+            {info.duesWarning && <DuesAlert message={info.duesWarning} />}
             <EventCard info={info} />
             {info.purpose === 'CHECKIN' ? (
               <CheckinFlow token={token} info={info} faculties={faculties} ticket={ticket} setTicket={setTicket} />

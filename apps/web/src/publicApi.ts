@@ -49,6 +49,8 @@ export interface TokenInfo {
   attendance: Ticket | null;
   prefill: { mssv: string; fullName: string; facultyUnitId: string; email: string | null } | null;
   deviceToken: string;
+  proxyWarning: boolean;
+  duesWarning: string | null;
 }
 
 export interface Position {
@@ -165,4 +167,4 @@ export interface HistoryItem {
   confirmCode: string | null;
 }
 
-export const myHistory = () => call<{ items: HistoryItem[] }>('GET', '/me/history');
+export const myHistory = () => call<{ items: HistoryItem[]; proxyWarning?: boolean; duesWarning?: string | null }>('GET', '/me/history');

@@ -7,6 +7,7 @@ import { Event } from '../events/entities/event.entity';
 import { Unit } from '../units/entities/unit.entity';
 import { Attendance } from './entities/attendance.entity';
 import { DeviceIdentity } from './device.service';
+import { SettingsService } from '../settings/settings.service';
 import { PublicLookupService } from './public-lookup.service';
 
 export interface PublicEvent {
@@ -41,6 +42,7 @@ export class QueryService {
   constructor(
     @InjectDataSource() private readonly ds: DataSource,
     private readonly lookup: PublicLookupService,
+    private readonly settings: SettingsService,
   ) {}
 
   // [NV] 2.1: chi khoa dang hoat dong, khong co Doan truong
@@ -67,6 +69,8 @@ export class QueryService {
       prefill: last ? { mssv: last.mssv, fullName: last.fullName, facultyUnitId: last.facultyUnitId, email: last.email } : null,
       // ban sao cookie cho localStorage cua client - dac ta 4
       deviceToken: device.token,
+      proxyWarning: await this.proxyWarning(device),
+      duesWarning: await this.duesWarning(device),
     };
   }
 
@@ -107,6 +111,26 @@ export class QueryService {
         timeliness: r.timeliness, viaThisDevice, confirmCode: viaThisDevice ? r.confirmCode : null,
       };
     });
-    return { items };
+    return { items, proxyWarning: await this.proxyWarning(device), duesWarning: await this.duesWarning(device) };
+  }
+
+  // [NV] MSSV da diem danh tu thiet bi nay nam trong danh sach chua dong doan phi - hoi phi -> tra loi canh bao do QTV soan, khong thi null.
+  private async duesWarning(device: DeviceIdentity): Promise<string | null> {
+    const rows = await this.ds.query(
+      `SELECT 1 FROM attendances a JOIN dues_unpaid d ON d.mssv = a.mssv WHERE a.device_id = ? AND a.voided_at IS NULL LIMIT 1`,
+      [device.id],
+    );
+    return rows.length > 0 ? this.settings.get<string>('dues_warning_message') : null;
+  }
+
+  // [NV] 5.3: thiet bi bi gan co DEVICE_MULTI_MSSV (dung diem danh cho nhieu MSSV) -> giao dien hien canh bao do cho chinh nguoi cam may.
+  // Chi tinh luot chua bi huy; khong tra chi tiet MSSV nao de tranh lo thong tin cua nguoi khac.
+  private async proxyWarning(device: DeviceIdentity): Promise<boolean> {
+    const rows = await this.ds.query(
+      `SELECT 1 FROM attendance_flags f JOIN attendances a ON a.id = f.attendance_id
+        WHERE a.device_id = ? AND a.voided_at IS NULL AND f.code = 'DEVICE_MULTI_MSSV' LIMIT 1`,
+      [device.id],
+    );
+    return rows.length > 0;
   }
 }

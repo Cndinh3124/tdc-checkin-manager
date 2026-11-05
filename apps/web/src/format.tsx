@@ -37,6 +37,7 @@ export const FLAG_LABEL: Record<string, string> = {
   NAME_MISMATCH: 'Tên khác lần trước',
   FACULTY_MISMATCH: 'Khoa khác lần trước',
   NEW_DEVICE: 'Thiết bị mới',
+  DUES_UNPAID: 'Chưa đóng đoàn phí - hội phí',
   BURST_SAME_FINGERPRINT: 'Nhiều MSSV cùng máy',
   GPS_OUTSIDE: 'Ngoài vùng GPS',
   GPS_LOW_ACCURACY: 'GPS kém chính xác',
@@ -113,3 +114,21 @@ export function ActivityBadge({ status }: { status: string }) {
 }
 
 export const vnd = (n: number | null) => (n === null ? '—' : `${n.toLocaleString('vi-VN')} đ`);
+
+// Canh bao do cho thiet bi bi gan co DEVICE_MULTI_MSSV (diem danh ho) - hien tren trang diem danh va trang lich su cua sinh vien
+export function ProxyAlert() {
+  return (
+    <div className="proxy-alert" role="alert">
+      ⚠ Phát hiện thiết bị đang điểm danh hộ. Vui lòng liên hệ BTC chương trình.
+    </div>
+  );
+}
+
+// Canh bao do chua dong doan phi - hoi phi; noi dung do QTV soan (cau hinh dues_warning_message)
+export function DuesAlert({ message }: { message: string }) {
+  return (
+    <div className="proxy-alert" role="alert">
+      ⚠ {message}
+    </div>
+  );
+}

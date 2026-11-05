@@ -11,6 +11,7 @@ import { DashboardModule } from './dashboard/dashboard.module';
 import { AppConfigModule, APP_ENV } from './config/app-config.module';
 import { AppEnv } from './config/env';
 import { buildDbOptions } from './database/data-source';
+import { DuesModule } from './dues/dues.module';
 import { EventsModule } from './events/events.module';
 import { HealthController } from './health.controller';
 import { PublicModule } from './public/public.module';
@@ -43,6 +44,7 @@ import { RetentionModule } from './retention/retention.module';
     AppealsModule,
     ActivitiesModule,
     StudentsModule,
+    DuesModule,
     ReportsModule,
     DashboardModule,
   ],

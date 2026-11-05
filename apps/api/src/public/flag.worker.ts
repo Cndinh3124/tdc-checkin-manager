@@ -122,6 +122,7 @@ export class FlagWorker implements OnModuleInit, OnModuleDestroy {
     await this.deviceFlags(att, raise);
     await this.historyFlags(att, raise);
     await this.burstFlags(att, device, raise);
+    await this.duesFlags(att, raise);
 
     for (const [id, code, detail] of flags) {
       await this.ds.query('INSERT IGNORE INTO attendance_flags (attendance_id, code, detail_json) VALUES (?, ?, ?)', [
@@ -174,6 +175,12 @@ export class FlagWorker implements OnModuleInit, OnModuleDestroy {
     );
     // lech <= 2 ky tu la go nham, khong tinh la MSSV khac han
     if (others.some((o) => levenshtein(o.mssv, att.mssv) > 2)) raise(att.id, 'DEVICE_MULTI_MSSV');
+  }
+
+  // [NV] MSSV nam trong danh sach chua dong doan phi - hoi phi: chi gan co, nguoi duyet tu quyet dinh diem ren luyen
+  private async duesFlags(att: Attendance, raise: Raise): Promise<void> {
+    const rows = await this.ds.query('SELECT 1 FROM dues_unpaid WHERE mssv = ? LIMIT 1', [att.mssv]);
+    if (rows.length) raise(att.id, 'DUES_UNPAID');
   }
 
   // [NV] 5.3 NAME_MISMATCH / FACULTY_MISMATCH: so voi luot gan nhat truoc do cua cung MSSV
