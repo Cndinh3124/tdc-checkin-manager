@@ -1,6 +1,6 @@
 # Image backend - dac ta 8.5: pin phien ban, chay user khong phai root
 # Build tu thu muc goc repo:  docker build -f apps/api/Dockerfile -t tdc-qr-api .
-FROM node:26.13.0-bookworm-slim AS build
+FROM node:26.13.1-bookworm-slim AS build
 WORKDIR /repo
 COPY package.json package-lock.json ./
 COPY apps/api/package.json apps/api/
@@ -8,7 +8,7 @@ RUN npm ci
 COPY apps/api apps/api
 RUN npm run -w apps/api build
 
-FROM node:26.13.0-bookworm-slim AS runtime
+FROM node:26.13.1-bookworm-slim AS runtime
 ENV NODE_ENV=production
 WORKDIR /repo
 COPY package.json package-lock.json ./
